@@ -1,0 +1,4 @@
+0001		23/06/2011	Benedict W. Hazel
+
+	* Initial "Northcote" release (Northcote 0001)
+	* Initial release of all language implementations

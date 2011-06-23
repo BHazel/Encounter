@@ -1,0 +1,34 @@
+1.0.5.25	09/06/2011	Benedict Hazel
+
+	* configure: Shell script generation completed within configuration and moved to final destination
+					within make
+	* configure: Updated Makefile to version 1.0.5.18 reflecting above changes
+
+1.0.4.22	11/02/2011	Benedict Hazel
+
+	* configure: Updated Makefile to version 1.0.4.14 with improved messages during compilation and
+					installation
+
+1.0.4.22	10/02/2011	Benedict Hazel
+
+	* configure: Added configuration script to generate necessary Makefile to compile JCounterpoise
+					(Makefile version: 1.0.3.7)
+
+1.0.3.22	25/01/2011	Benedict Hazel
+
+	* Jcounterpoise.java (main): Added additional error reporting blocks and close() method call to
+					BufferedReader object
+
+1.0.3.21	20/01/2011	Benedict Hazel
+
+	* JCounterpoise.java (main): Added catch block for FileNotFoundException to create a more visually
+					appealing error message
+
+1.0.2.16	17/01/2011	Benedict Hazel
+
+	* JCounterpoise.java (main): Added error-checking for zero-length filenames
+	* Jcounterpoise.java (main): Edited console output to tidy text display at runtime
+
+1.0.1.10	12/01/2011	Benedict Hazel
+
+	* JCounterpoise.java (main): Added support for printing binding constant to console
