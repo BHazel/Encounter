@@ -1,4 +1,4 @@
-ENCOUNTER 2011-06-23, 0001 "NORTHCOTE" README
+ENCOUNTER 2011-06-26, 0001 "NORTHCOTE" README
 =============================================
 
 Encounter is a simple program for calculating the interaction energy between two molecules using the
