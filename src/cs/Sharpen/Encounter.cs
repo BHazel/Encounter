@@ -92,17 +92,14 @@ namespace BWHazel.Sharpen
             reader.Close();
 
             if (energyStrings.Count == 0) throw new ApplicationException("No energy values found");
-            if (energyStrings.Count < 5)
-            {
-                if (energyStrings.Count >= 1) _dimer = Double.Parse(energyStrings[0]);
-                if (energyStrings.Count >= 2) _monAdimer = Double.Parse(energyStrings[1]);
-                if (energyStrings.Count < 3) throw new ApplicationException("Incomplete dataset found, from which interaction energy cannot be calculated");
-                
-                if (energyStrings.Count >= 3) _monBdimer = Double.Parse(energyStrings[2]);
-                if (energyStrings.Count >= 4) _monAmonA = Double.Parse(energyStrings[3]);
-                throw new ApplicationException("Incomplete dataset found, but interaction energy can be calculated");
-            }
-            else _monBmonB = Double.Parse(energyStrings[4]);
+            if (energyStrings.Count >= 1) _dimer = Double.Parse(energyStrings[0]);
+            if (energyStrings.Count >= 2) _monAdimer = Double.Parse(energyStrings[1]);
+            if (energyStrings.Count < 3) throw new ApplicationException("Incomplete dataset found, from which interaction energy cannot be calculated");
+            
+            if (energyStrings.Count >= 3) _monBdimer = Double.Parse(energyStrings[2]);
+            if (energyStrings.Count >= 4) _monAmonA = Double.Parse(energyStrings[3]);
+            if (energyStrings.Count > 5) throw new ApplicationException("Incomplete dataset found, but interaction energy can be calculated");
+            if (energyStrings.Count == 5) _monBmonB = Double.Parse(energyStrings[4]);
         }
 
         public void SetInteractionEnergies()
