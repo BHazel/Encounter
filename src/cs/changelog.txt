@@ -1,3 +1,7 @@
-﻿1.0.0.11	23/06/2011	Benedict W. Hazel
+﻿1.0.0.12	29/08/2011	Benedict W. Hazel
+
+	* UI data population bug fixed
+
+1.0.0.11	23/06/2011	Benedict W. Hazel
 
 	* Initial release
