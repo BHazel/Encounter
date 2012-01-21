@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
 
+// Rename: BWHazel.Apps.Encounter
 namespace BWHazel.Sharpen
 {
     public class Encounter
@@ -20,6 +21,7 @@ namespace BWHazel.Sharpen
         
         public List<String> energyStrings;
 
+        // Obsolete - not used
         public int EnergyCount
         {
             get { return energyStrings.Count; }
@@ -98,7 +100,7 @@ namespace BWHazel.Sharpen
             
             if (energyStrings.Count >= 3) _monBdimer = Double.Parse(energyStrings[2]);
             if (energyStrings.Count >= 4) _monAmonA = Double.Parse(energyStrings[3]);
-            if (energyStrings.Count > 5) throw new ApplicationException("Incomplete dataset found, but interaction energy can be calculated");
+            if (energyStrings.Count < 5) throw new ApplicationException("Incomplete dataset found, but interaction energy can be calculated");
             if (energyStrings.Count == 5) _monBmonB = Double.Parse(energyStrings[4]);
         }
 

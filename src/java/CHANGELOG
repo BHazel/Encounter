@@ -1,3 +1,12 @@
+1.1.0.37	21/01/2012	Benedict Hazel
+
+	* JCounterpoise.java: Complete rewrite of program code, including command-line processing using
+					Java implementation of Getopt by Aaron M. Renn
+	* Encounter.java: New class using same structure as .NET/C# implementations for counterpoise
+					energy logic
+	* configure: Updated Makefile to version 1.0.7.24 reflecting JCounterpoise update to 1.1.0.37
+	* configure: Shell script updated with basic support for command-line processing
+
 1.0.5.25	09/06/2011	Benedict Hazel
 
 	* configure: Shell script generation completed within configuration and moved to final destination

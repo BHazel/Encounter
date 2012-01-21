@@ -1,139 +1,131 @@
 import java.io.*;
-import java.util.*;
-import java.util.regex.*;
+import gnu.getopt.*;
 
 public class JCounterpoise
 {
+    static final String JC_TITLE = "JCounterpoise (Java Implementation)";
+    static final String JC_VERSION = "1.1.0.37";
+    static final String JC_COPYRIGHT = "(c) Benedict W. Hazel, 2011-2012";
+    static String calcFile = "";
+    static String exportFile = "";
+    static Encounter encounter;
 
-	static String filename = "";
-	static String version = "1.0.5.25";
+    public static void main(String[] args) {
+        Console console = System.console();
 
-	public static void main(String[] args)
-	{
-		Console console = System.console();
-		ArrayList<Double> energies = new ArrayList<Double>();
-		Pattern scfDone = Pattern.compile("-\\d+\\.\\d+");
-		Double interactionEnergyHartrees;
-		Double interactionEnergyKJMol;
-		Double bindingConstant;
-		BufferedReader calcFile = null;
-		
-		// Welcome message
-		System.out.println("\n# JCounterpoise v" + version + " #");
+        // Process Command-Line Arguments
+        LongOpt[] options = {
+            new LongOpt("open", LongOpt.REQUIRED_ARGUMENT, null, 'o'),
+            new LongOpt("version", LongOpt.NO_ARGUMENT, null, 'v')
+        };
+        Getopt g = new Getopt("JCounterpoise", args, "o:v", options);
+        g.setOpterr(false);
+        int optChar;
+        while ((optChar = g.getopt()) != -1) {
+            switch (optChar) {
+                case 'o':
+                    exportFile = g.getOptarg();
+                    break;
+                case 'v':
+                    about();
+                    System.exit(0);
+                    break;
+                case '?':
+                    System.err.println("ERROR: Option -" + (char)g.getOptopt() + " is not valid");
+                    System.exit(1);
+                    break;
+                default:
+                    break;
+            }
+        }
+        System.out.println("# " + JC_TITLE + " v." + JC_VERSION + " #");
+        if (g.getOptind() == (args.length - 1)) calcFile = args[g.getOptind()];
+        else {
+            while (calcFile.length() == 0) {
+                calcFile = console.readLine("Enter counterpoise calculation filename: ");
+            }
+        }
 
-		// Check for filename in command-line arguments, otherwise ask
-		if (args.length < 1)
-		{
-			System.out.println("");
-			while (filename.length() == 0)
-			{
-				filename = console.readLine("Enter counterpoise calculation filename: ");
-			}
-		}
-		else
-		{
-			filename = args[0];
-		}
+        encounter = new Encounter();
 
-		// Extract completed SCF cycles
-		try
-		{
-			calcFile = new BufferedReader(new FileReader(filename));
-			String currentLine;
-			while ((currentLine = calcFile.readLine()) != null)
-			{
-				if (currentLine.startsWith(" SCF Done"))
-				{
-					Matcher matcher = scfDone.matcher(currentLine);
-					if (matcher.find())
-						energies.add(Double.parseDouble(matcher.group()));
-				}
-			}
-			System.out.println("");
+        try {
+            openFile();
+        }
+        catch (FileNotFoundException ex) {
+            System.err.println("ERROR: File " + calcFile + " could not be found.");
+            System.exit(1);
+        }
+        catch (IOException ex) {
+            System.err.println("ERROR: An input error occurred while reading " + calcFile);
+            System.exit(1);
+        }
+        catch (IllegalArgumentException ex) {
+            System.err.println(ex.getMessage());
+        }
 
-			// Print warning messages if incomplete dataset
-			if (energies.size() == 0)
-			{
-				System.err.println("ERROR: No energy values found\n");
-				System.exit(1);
-			}
-			else if (energies.size() < 3)
-			{
-				System.err.println("ERROR: Insufficient data to calculate interaction energy\n");
-			}
-			else if (energies.size() < 5)
-			{
-				System.err.println("WARNING: Incomplete dataset, but interaction energy can be calculated\n");
-			}
-			else if (energies.size() > 5)
-			{
-				System.err.println("ERROR: This is not a single-point calculation\n");
-				System.exit(1);
-			}
+        setUi();
 
-			// Print energy values to the console
-			System.out.println("Energies /au:\n");
-			if (energies.size() >= 1)
-			{
-				System.out.println("DIMER BASIS");
-				System.out.println("  Dimer =       " + energies.get(0));
-			}
-			if (energies.size() >= 2)
-			{
-				System.out.println("  Monomer A =   " + energies.get(1));
-			}
-			if (energies.size() >= 3)
-			{
-				System.out.println("  Monomer B =   " + energies.get(2));
-			}
-			if (energies.size() >= 4)
-			{
-				System.out.println("MONOMER BASIS");
-				System.out.println("  Monomer A =   " + energies.get(3));
-			}
-			if (energies.size() == 5)
-			{
-				System.out.println("  Monomer B =   " + energies.get(4));
-			}
+        if (exportFile.length() != 0) {
+            try {
+                exportFile();
+            }
+            catch (IOException ex) {
+                System.err.println("ERROR: An output error occurred while writing " + exportFile);
+            }
+        }
+    }
 
-			// Calculate interaction energy and binding constant
-			if (energies.size() >= 3)
-			{
-				interactionEnergyHartrees = energies.get(0) - (energies.get(1) + energies.get(2));
-				interactionEnergyKJMol = interactionEnergyHartrees * 2625.5;
-				bindingConstant = Math.exp((interactionEnergyKJMol * 1000)/(-1 * 8.314 * 298));
+    private static void openFile() throws IOException {
+        encounter.setEnergies(calcFile);
+        if (encounter.energyStrings.size() < 3) {
+            System.err.println("ERROR: Incomplete dataset found, from which interaction energy cannot be calculated");
+        }
+        else if (encounter.energyStrings.size() < 5) {
+            System.err.println("WARNING: Incomplete dataset found, but interaction energy can be calculated");
+            encounter.setInteractionEnergies();
+        }
+        else if (encounter.energyStrings.size() == 5) {
+            encounter.setInteractionEnergies();
+        }
+    }
 
-				System.out.println("\nInteraction Energy =\n");
-				System.out.println("  " + interactionEnergyHartrees.toString() + " au");
-				System.out.println("  " + interactionEnergyKJMol.toString() + " kJ/mol");
-				System.out.println("\nBinding Constant = \n");
-				System.out.println("  " + bindingConstant.toString());
-			}
-		}
-		catch (FileNotFoundException ex)
-		{
-			System.err.println("\nERROR: File \"" + filename + "\" not found");
-		}
-		catch (IOException ex)
-		{
-			System.err.println("\nERROR: An input error has occurred while reading " + filename);
-		}
-		catch (Exception ex)
-		{
-			System.err.println("\n** An error has occurred: " + ex.toString());
-			System.err.println("** " + ex.getMessage());
-		}
-		finally
-		{
-			try
-			{
-				calcFile.close();
-			}
-			catch (IOException ex)
-			{
-				System.err.println("\nERROR: BufferedReader object cannot be closed");
-			}
-		}
-		System.out.println("");
-	}
+    private static void exportFile() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(exportFile));
+        try {
+            writer.write(encounter.toCsv());
+        }
+        finally {
+            writer.close();
+        }
+    }
+
+    private static void setUi() {
+        if (encounter.energyStrings.size() >= 1) {
+            System.out.println("DIMER BASIS:");
+            System.out.println("  Dimer =       " + String.valueOf(encounter.getDimer()));
+        }
+        if (encounter.energyStrings.size() >= 2) {
+            System.out.println("  Monomer A =   " + String.valueOf(encounter.getMonomerADimerBasis()));
+        }
+        if (encounter.energyStrings.size() >= 3) {
+            System.out.println("  Monomer B =   " + String.valueOf(encounter.getMonomerBDimerBasis()));
+            if (encounter.energyStrings.size() >= 4) {
+                System.out.println("MONOMER BASIS:");
+                System.out.println("  Monomer A =    " + String.valueOf(encounter.getMonomerAMonomerBasis()));
+            }
+            if (encounter.energyStrings.size() == 5) {
+                System.out.println("  Monomer B =    " + String.valueOf(encounter.getMonomerBMonomerBasis()));
+            }
+            System.out.println("\nInteraction Energy =");
+            System.out.println("  " + String.valueOf(encounter.getInteractionHartree()) + " au");
+            System.out.println("  " + String.valueOf(encounter.getInteractionKjmol()) + " kJ/mol");
+            System.out.println("\nBinding Constant =");
+            System.out.println("  " + String.valueOf(encounter.getBindingConstant()));
+        }
+    }
+
+    private static void about() {
+        System.out.println("# " + JC_TITLE + " v." + JC_VERSION + " #");
+        System.out.println(JC_COPYRIGHT);
+    }
 }

@@ -1,4 +1,9 @@
+0003		21/01/2012	Benedict W. Hazel
+
+	* Java implementation updated to version 1.1.0.37
+
 0002		29/08/2011	Benedict W. Hazel
+
 	* C# implementation UI data population bug fix
 
 0001		26/06/2011	Benedict W. Hazel

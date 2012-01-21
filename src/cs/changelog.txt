@@ -1,4 +1,8 @@
-﻿1.0.0.12	29/08/2011	Benedict W. Hazel
+﻿1.0.0.13	Date TBA	Benedict W. Hazel
+
+	* Bug fixed where 4 energy values did not return an incomplete dataset warning
+
+1.0.0.12	29/08/2011	Benedict W. Hazel
 
 	* UI data population bug fixed
 
