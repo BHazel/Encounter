@@ -12,7 +12,7 @@ public class Encounter {
     double _interactHartree;
     double _interactKjmol;
     double _bindingConstant;
-    public ArrayList<String> energyStrings;
+    private ArrayList<String> energyStrings;
     
     public Encounter()
     {
@@ -20,12 +20,28 @@ public class Encounter {
         energyStrings = new ArrayList<String>();
     }
 
+    public int energyCount()
+    {
+        return energyStrings.size();
+    }
+
     public void setEnergies(String filename) throws IllegalArgumentException, IOException
     {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line = null;
+        boolean gaussianCalc = false;
+
+        if (energyStrings.size() != 0) energyStrings.clear();
+
         while ((line = reader.readLine()) != null)
         {
+            if (!line.startsWith(" Entering Gaussian System") && !gaussianCalc)
+            {
+                reader.close();
+                throw new IllegalArgumentException("This is not a Gaussian calculation");
+            }
+            else gaussianCalc = true;
+
             if (line.startsWith(" # ") && !line.contains("counterpoise=2"))
             {
                 reader.close();
@@ -49,7 +65,7 @@ public class Encounter {
 
     public void setInteractionEnergies()
     {
-        this._interactHartree = this._dimer - this._monAdimer + this._monBdimer;
+        this._interactHartree = this._dimer - (this._monAdimer + this._monBdimer);
         this._interactKjmol = this._interactHartree * 2625.5;
         this._bindingConstant = Math.exp((this._interactKjmol * 1000) / (-1 * 8.314 * 298));
     }

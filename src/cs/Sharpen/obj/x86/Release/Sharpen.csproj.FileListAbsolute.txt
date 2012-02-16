@@ -1,2 +1,1 @@
 C:\Users\Benedict Hazel\Documents\Visual Studio 2010\Projects\Scientific\Sharpen\Sharpen\bin\Release\Sharpen.exe.config
-C:\Users\Benedict Hazel\Documents\Mercurial Repositories\encounter\src\cs\Sharpen\bin\Release\Sharpen.exe.config

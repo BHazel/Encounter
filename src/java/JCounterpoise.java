@@ -4,7 +4,7 @@ import gnu.getopt.*;
 public class JCounterpoise
 {
     static final String JC_TITLE = "JCounterpoise (Java Implementation)";
-    static final String JC_VERSION = "1.1.0.37";
+    static final String JC_VERSION = "1.1.1.40";
     static final String JC_COPYRIGHT = "(c) Benedict W. Hazel, 2011-2012";
     static String calcFile = "";
     static String exportFile = "";
@@ -15,7 +15,7 @@ public class JCounterpoise
 
         // Process Command-Line Arguments
         LongOpt[] options = {
-            new LongOpt("open", LongOpt.REQUIRED_ARGUMENT, null, 'o'),
+            new LongOpt("output", LongOpt.REQUIRED_ARGUMENT, null, 'o'),
             new LongOpt("version", LongOpt.NO_ARGUMENT, null, 'v')
         };
         Getopt g = new Getopt("JCounterpoise", args, "o:v", options);
@@ -60,7 +60,7 @@ public class JCounterpoise
             System.exit(1);
         }
         catch (IllegalArgumentException ex) {
-            System.err.println(ex.getMessage());
+            System.err.println("ERROR: " + ex.getMessage());
         }
 
         setUi();
@@ -77,14 +77,17 @@ public class JCounterpoise
 
     private static void openFile() throws IOException {
         encounter.setEnergies(calcFile);
-        if (encounter.energyStrings.size() < 3) {
+        if (encounter.energyCount() == 0) {
+            System.err.println("ERROR: No energy values found");
+        }
+        else if(encounter.energyCount() < 3) {
             System.err.println("ERROR: Incomplete dataset found, from which interaction energy cannot be calculated");
         }
-        else if (encounter.energyStrings.size() < 5) {
+        else if (encounter.energyCount() < 5) {
             System.err.println("WARNING: Incomplete dataset found, but interaction energy can be calculated");
             encounter.setInteractionEnergies();
         }
-        else if (encounter.energyStrings.size() == 5) {
+        else if (encounter.energyCount() == 5) {
             encounter.setInteractionEnergies();
         }
     }
@@ -100,20 +103,20 @@ public class JCounterpoise
     }
 
     private static void setUi() {
-        if (encounter.energyStrings.size() >= 1) {
+        if (encounter.energyCount() >= 1) {
             System.out.println("DIMER BASIS:");
             System.out.println("  Dimer =       " + String.valueOf(encounter.getDimer()));
         }
-        if (encounter.energyStrings.size() >= 2) {
+        if (encounter.energyCount() >= 2) {
             System.out.println("  Monomer A =   " + String.valueOf(encounter.getMonomerADimerBasis()));
         }
-        if (encounter.energyStrings.size() >= 3) {
+        if (encounter.energyCount() >= 3) {
             System.out.println("  Monomer B =   " + String.valueOf(encounter.getMonomerBDimerBasis()));
-            if (encounter.energyStrings.size() >= 4) {
+            if (encounter.energyCount() >= 4) {
                 System.out.println("MONOMER BASIS:");
                 System.out.println("  Monomer A =    " + String.valueOf(encounter.getMonomerAMonomerBasis()));
             }
-            if (encounter.energyStrings.size() == 5) {
+            if (encounter.energyCount() == 5) {
                 System.out.println("  Monomer B =    " + String.valueOf(encounter.getMonomerBMonomerBasis()));
             }
             System.out.println("\nInteraction Energy =");

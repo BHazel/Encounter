@@ -48,7 +48,6 @@ namespace BWHazel.Sharpen
 
         private void OpenFile()
         {
-            this.ResetUi();
             if (dfoOpen.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -65,6 +64,7 @@ namespace BWHazel.Sharpen
                 }
                 finally
                 {
+                    this.ResetUi();
                     this.SetUi();
                 }
             }

@@ -4,7 +4,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
 
-// Rename: BWHazel.Apps.Encounter
 namespace BWHazel.Sharpen
 {
     public class Encounter
@@ -18,10 +17,8 @@ namespace BWHazel.Sharpen
         double _interactHartree;
         double _interactKjmol;
         double _bindingConstant;
-        
-        public List<String> energyStrings;
+        private List<String> energyStrings;
 
-        // Obsolete - not used
         public int EnergyCount
         {
             get { return energyStrings.Count; }
@@ -77,8 +74,19 @@ namespace BWHazel.Sharpen
         {
             StreamReader reader = new StreamReader(filename);
             string line = null;
+            bool gaussianCalc = false;
+
+            if (energyStrings.Count != 0) energyStrings.Clear();
+
             while ((line = reader.ReadLine()) != null)
             {
+                if (!line.StartsWith(" Entering Gaussian System") && !gaussianCalc)
+                {
+                    reader.Close();
+                    throw new ArgumentException("This is not a Gaussian calculation");
+                }
+                else gaussianCalc = true;
+
                 if (line.StartsWith(" # ") && !line.Contains("counterpoise=2"))
                 {
                     reader.Close();

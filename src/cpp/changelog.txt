@@ -1,3 +1,15 @@
+1.0.5.48	16/02/2012	Benedict W. Hazel
+
+	* Detects, and alerts the user, if a selected file is not a Gaussian calculation
+	* Keyboard shortcuts for Open, Export, and Exit commands added
+	* UI is reset only if a file is selected in the Open dialog rather than on running the Open command
+	* Moved open and export code into openFile() and exportFile() methods as in other
+		implementations
+	* Energy values stored in the energyStrings variable are cleared prior to reading
+		a file
+	* energyStrings variable set to private; energyCount() method added to access number
+		of items in the variable
+
 1.0.4.40	23/06/2011	Benedict W. Hazel
 
 	* Initial release

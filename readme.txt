@@ -1,4 +1,4 @@
-ENCOUNTER 2011-06-26, 0001 "NORTHCOTE" README
+ENCOUNTER 2012-02-16, 0005 "NORTHCOTE" README
 =============================================
 
 Encounter is a simple program for calculating the interaction energy between two molecules using the
@@ -48,6 +48,15 @@ You require the .NET Framework 2.0 or newer and, ideally, Visual Studio installe
 this implementation.
 
 To install, load the Visual Studio project and build.
+
+Objective-C/Cocoa (Xen)
+-----------------------
+
+Location: src/objc
+
+You require Mac OS X 10.7 "Lion"and Xcode 4 installed to use this implementation.
+
+To install, load the Xcode project and build.
 
 Samples
 =======

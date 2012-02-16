@@ -85,14 +85,15 @@
             this.mnuFileSeparator,
             this.mnuFileExit});
             this.mnuFile.Name = "mnuFile";
-            this.mnuFile.Size = new System.Drawing.Size(37, 20);
+            this.mnuFile.Size = new System.Drawing.Size(35, 20);
             this.mnuFile.Text = "File";
             // 
             // mnuFileOpen
             // 
             this.mnuFileOpen.Image = global::BWHazel.Sharpen.Properties.Resources.IMG_OPEN_FILE;
             this.mnuFileOpen.Name = "mnuFileOpen";
-            this.mnuFileOpen.Size = new System.Drawing.Size(152, 22);
+            this.mnuFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.mnuFileOpen.Size = new System.Drawing.Size(156, 22);
             this.mnuFileOpen.Text = "Open...";
             this.mnuFileOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
             // 
@@ -100,19 +101,21 @@
             // 
             this.mnuFileExport.Image = global::BWHazel.Sharpen.Properties.Resources.IMG_SAVE_FILE;
             this.mnuFileExport.Name = "mnuFileExport";
-            this.mnuFileExport.Size = new System.Drawing.Size(152, 22);
+            this.mnuFileExport.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.mnuFileExport.Size = new System.Drawing.Size(156, 22);
             this.mnuFileExport.Text = "Export...";
             this.mnuFileExport.Click += new System.EventHandler(this.mnuFileExport_Click);
             // 
             // mnuFileSeparator
             // 
             this.mnuFileSeparator.Name = "mnuFileSeparator";
-            this.mnuFileSeparator.Size = new System.Drawing.Size(149, 6);
+            this.mnuFileSeparator.Size = new System.Drawing.Size(153, 6);
             // 
             // mnuFileExit
             // 
             this.mnuFileExit.Name = "mnuFileExit";
-            this.mnuFileExit.Size = new System.Drawing.Size(152, 22);
+            this.mnuFileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.mnuFileExit.Size = new System.Drawing.Size(156, 22);
             this.mnuFileExit.Text = "Exit";
             this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
             // 
@@ -121,13 +124,13 @@
             this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuHelpAbout});
             this.mnuHelp.Name = "mnuHelp";
-            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Size = new System.Drawing.Size(40, 20);
             this.mnuHelp.Text = "Help";
             // 
             // mnuHelpAbout
             // 
             this.mnuHelpAbout.Name = "mnuHelpAbout";
-            this.mnuHelpAbout.Size = new System.Drawing.Size(107, 22);
+            this.mnuHelpAbout.Size = new System.Drawing.Size(103, 22);
             this.mnuHelpAbout.Text = "About";
             this.mnuHelpAbout.Click += new System.EventHandler(this.mnuHelpAbout_Click);
             // 
@@ -138,7 +141,7 @@
             this.tsbExport});
             this.tlsSharpen.Location = new System.Drawing.Point(0, 24);
             this.tlsSharpen.Name = "tlsSharpen";
-            this.tlsSharpen.Size = new System.Drawing.Size(431, 54);
+            this.tlsSharpen.Size = new System.Drawing.Size(431, 52);
             this.tlsSharpen.TabIndex = 1;
             this.tlsSharpen.Text = "Sharpen Toolbar";
             // 
@@ -148,7 +151,7 @@
             this.tsbOpen.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tsbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOpen.Name = "tsbOpen";
-            this.tsbOpen.Size = new System.Drawing.Size(40, 51);
+            this.tsbOpen.Size = new System.Drawing.Size(37, 49);
             this.tsbOpen.Text = "Open";
             this.tsbOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsbOpen.Click += new System.EventHandler(this.tsbOpen_Click);
@@ -159,7 +162,7 @@
             this.tsbExport.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tsbExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbExport.Name = "tsbExport";
-            this.tsbExport.Size = new System.Drawing.Size(44, 51);
+            this.tsbExport.Size = new System.Drawing.Size(43, 49);
             this.tsbExport.Text = "Export";
             this.tsbExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsbExport.Click += new System.EventHandler(this.tsbExport_Click);

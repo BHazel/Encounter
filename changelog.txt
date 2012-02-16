@@ -1,3 +1,14 @@
+0005		16/02/2012	Benedict W. Hazel
+
+	* C# implementation updated to version 1.0.1.19
+	* C++ implementation updated to version 1.0.5.48
+	* Java implementation updated to version 1.1.1.40
+	* Addition of new Objective-C implementation
+
+0004		29/01/2012	Benedict W. Hazel
+
+	* Java implementation updated to version 1.1.0.38 correcting code and configuration errors
+
 0003		21/01/2012	Benedict W. Hazel
 
 	* Java implementation updated to version 1.1.0.37

@@ -1,3 +1,20 @@
+1.1.1.40	16/02/2012	Benedict Hazel
+
+	* JCounterpoise.java: Consistency of error notifications improved
+	* JCounterpoise.java: Detects, and alerts the user, if a selected file is not a Gaussian
+					calculation
+	* JCounterpoise.java: Alerts user if no energy values are found in a calculation
+	* Encounter.java: Correct interaction energy calculation implemented
+	* Encounter.java: Energy values stored in the energyStrings variable are cleared prior to
+					reading a file
+	* Encounter.java: energyStrings variable set to private; energyCount() method added to
+					access number of items in the variable
+
+1.1.0.38	21/01/2012	Benedict Hazel
+
+	* JCounterpoise.java: Corrected -o long option to be --output rather than --open
+	* configure: Updated Makefile to version 1.0.7.26 correcting file movement and removal faults
+
 1.1.0.37	21/01/2012	Benedict Hazel
 
 	* JCounterpoise.java: Complete rewrite of program code, including command-line processing using

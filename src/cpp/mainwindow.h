@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#define ENCOUNTER_ABOUT "Encounter (C++/Qt Implementation) v.1.0.4.40\n\n(c) Benedict W. Hazel, 2011"
+#define ENCOUNTER_ABOUT "Encounter (C++/Qt Implementation) v.1.0.5.48\n\n(c) Benedict W. Hazel, 2011-2012"
 
 #include <encounter.h>
 #include <QFileDialog>
@@ -34,6 +34,8 @@ private slots:
     void on_actionExit_triggered();
     void on_actionAbout_triggered();
     void on_actionAbout_Qt_triggered();
+    void openFile();
+    void exportFile();
     void setUi();
     void resetUi();
 };

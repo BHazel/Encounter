@@ -1,10 +1,16 @@
-﻿1.0.0.13	Date TBA	Benedict W. Hazel
+﻿1.0.1.19	16/02/2012	Benedict W. Hazel
 
-	* Bug fixed where 4 energy values did not return an incomplete dataset warning
+	* Detects, and alerts the user, if a selected file is not a Gaussian calculation
+	* Keyboard shortcuts for Open, Export, and Exit commands added
+	* UI is reset only if a file is selected in the Open dialog rather than on running the Open command
+	* Erroneous and unnecessary comments removed (EnergyCount property is *not* obsolete)
+	* Energy values stored in the energyStrings variable are cleared prior to reading a file
+	* energyStrings variable set to private
 
 1.0.0.12	29/08/2011	Benedict W. Hazel
 
 	* UI data population bug fixed
+	* Bug fixed where 4 energy values did not return an incomplete dataset warning
 
 1.0.0.11	23/06/2011	Benedict W. Hazel
 

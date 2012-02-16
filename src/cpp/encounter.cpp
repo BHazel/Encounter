@@ -12,16 +12,15 @@ int Encounter::setEnergies(QString filename)
       RETURN CODES:
       0: Complete dataset
       1: File cannot be opened
-      2: This is not a counterpoise calculation
-      3: No energy values found
-      4: Incomplete dataset: can calculate interaction
-      5: Incomplete dataset: cannot calculate interaction
+      2: This is not a Gaussian calculation
+      3: This is not a counterpoise calculation
+      4: No energy values found
+      5: Incomplete dataset: can calculate interaction
+      6: Incomplete dataset: cannot calculate interaction
       */
 
     // Return value
     int ret = 0;
-
-    energyStrings.clear();
 
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -30,9 +29,24 @@ int Encounter::setEnergies(QString filename)
     }
     QTextStream fileReader(&file);
     QString line = fileReader.readLine(132);
+    bool gaussianCalc = false;
+
+    if (energyStrings.count() != 0) energyStrings.clear();
+
     while (!line.isNull())
     {
-        if (line.startsWith(" # ") && !line.contains("counterpoise=2", Qt::CaseInsensitive)) return 2;
+        if (!line.startsWith(" Entering Gaussian System") && !gaussianCalc)
+        {
+            file.close();
+            return 2;
+        }
+        else gaussianCalc = true;
+
+        if (line.startsWith(" # ") && !line.contains("counterpoise=2", Qt::CaseInsensitive))
+        {
+            file.close();
+            return 3;
+        }
         if (line.startsWith(" SCF Done:", Qt::CaseInsensitive))
         {
             energyExpression.indexIn(line);
@@ -43,9 +57,9 @@ int Encounter::setEnergies(QString filename)
     file.close();
 
     // Set return value depending on dataset
-    if (energyStrings.length() == 0) return 3;
-    if (energyStrings.length() < 5) ret = 4;
-    if (energyStrings.length() < 3) ret = 5;
+    if (energyStrings.length() == 0) return 4;
+    if (energyStrings.length() < 5) ret = 5;
+    if (energyStrings.length() < 3) ret = 6;
 
     if (energyStrings.length() >= 1) this->_dimer = energyStrings.at(0).toDouble();
     if (energyStrings.length() >= 2) this->_monAdimer = energyStrings.at(1).toDouble();
@@ -87,6 +101,11 @@ QString Encounter::toCsv()
     csv.append("\n/1,");
     if (energyStrings.length() >= 3) csv.append(QString::number(this->getBindingConstant(), 'g', 14));
     return csv;
+}
+
+int Encounter::energyCount()
+{
+    return energyStrings.count();
 }
 
 double Encounter::getDimer()

@@ -28,13 +28,14 @@ private:
     double _interactHartree;
     double _interactKjmol;
     double _bindingConstant;
+    QList<QString> energyStrings;
 
 public:
-    QList<QString> energyStrings;
     Encounter();
     int setEnergies(QString filename);
     void setInteractionEnergies();
     QString toCsv();
+    int energyCount();
     double getDimer();
     double getMonomerADimerBasis();
     double getMonomerBDimerBasis();
