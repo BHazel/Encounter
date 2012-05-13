@@ -1,3 +1,10 @@
-﻿1.0.2.40	16/02/2012	Benedict W. Hazel
+﻿1.1.0.57	13/05/2012	Benedict W. Hazel
+
+	* Calculation description is now obtained and displayed in the user interface
+	* Calculation description is included in exported data
+	* Data can now be exported in JSON and XML
+	* All references to KJ/mol are now Kjmol in variable names and output, excluding CSV
+
+1.0.2.40	16/02/2012	Benedict W. Hazel
 
 	* Initial release

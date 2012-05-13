@@ -79,7 +79,11 @@ namespace BWHazel.Sharpen
                     filePerms = new FileIOPermission(FileIOPermissionAccess.Write, dfsExport.FileName);
                     filePerms.Demand();
                     StreamWriter writer = new StreamWriter(dfsExport.FileName);
-                    writer.WriteLine(encounter.ToCsv());
+                    // CHECK!
+                    if (dfsExport.FilterIndex == 1) writer.WriteLine(encounter.ToCsv());
+                    else if (dfsExport.FilterIndex == 2) writer.WriteLine(encounter.ToJson());
+                    else if (dfsExport.FilterIndex == 3) writer.WriteLine(encounter.ToXml());
+                    else throw new ApplicationException("Unknown file type selected");
                     writer.Close();
                 }
                 catch (Exception ex)
@@ -91,6 +95,7 @@ namespace BWHazel.Sharpen
 
         private void SetUi()
         {
+            txtDescription.Text = encounter.Description;
             if (encounter.EnergyCount >= 1) txtDimerDimer.Text = encounter.Dimer.ToString();
             if (encounter.EnergyCount >= 2) txtMonADimer.Text = encounter.MonomerADimerBasis.ToString();
             if (encounter.EnergyCount >= 3)
@@ -99,13 +104,14 @@ namespace BWHazel.Sharpen
                 if (encounter.EnergyCount >= 4) txtMonAMon.Text = encounter.MonomerAMonomerBasis.ToString();
                 if (encounter.EnergyCount == 5) txtMonBMon.Text = encounter.MonomerBMonomerBasis.ToString();
                 txtInteractionHartree.Text = encounter.InteractionEnergyHartrees.ToString();
-                txtInteractionKjmol.Text = encounter.InteractionEnergyKJMol.ToString();
+                txtInteractionKjmol.Text = encounter.InteractionEnergyKjmol.ToString();
                 txtBindingConstant.Text = encounter.BindingConstant.ToString();
             }
         }
 
         private void ResetUi()
         {
+            txtDescription.Text = "";
             txtDimerDimer.Text = "";
             txtMonADimer.Text = "";
             txtMonBDimer.Text = "";

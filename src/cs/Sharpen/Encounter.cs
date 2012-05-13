@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.IO;
+using System.Xml;
 
 namespace BWHazel.Sharpen
 {
     public class Encounter
     {
         private Regex energyExpression;
+        string _description;
         double _dimer;
         double _monAdimer;
         double _monBdimer;
@@ -22,6 +24,11 @@ namespace BWHazel.Sharpen
         public int EnergyCount
         {
             get { return energyStrings.Count; }
+        }
+
+        public string Description
+        {
+            get { return _description; }
         }
 
         public double Dimer
@@ -54,7 +61,7 @@ namespace BWHazel.Sharpen
             get { return _interactHartree; }
         }
 
-        public double InteractionEnergyKJMol
+        public double InteractionEnergyKjmol
         {
             get { return _interactKjmol; }
         }
@@ -75,7 +82,10 @@ namespace BWHazel.Sharpen
             StreamReader reader = new StreamReader(filename);
             string line = null;
             bool gaussianCalc = false;
+            int hyphenLines = 0;
+            bool descriptionFound = false;
 
+            _description = "";
             if (energyStrings.Count != 0) energyStrings.Clear();
 
             while ((line = reader.ReadLine()) != null)
@@ -87,6 +97,13 @@ namespace BWHazel.Sharpen
                 }
                 else gaussianCalc = true;
 
+                if (hyphenLines == 5)
+                {
+                    _description = line.Trim();
+                    hyphenLines = 0;
+                    descriptionFound = true;
+                }
+                if (line.StartsWith(" ----") && !descriptionFound) hyphenLines++;
                 if (line.StartsWith(" # ") && !line.Contains("counterpoise=2"))
                 {
                     reader.Close();
@@ -122,6 +139,7 @@ namespace BWHazel.Sharpen
         public string ToCsv()
         {
             StringBuilder csv = new StringBuilder();
+            csv.Append(this.Description + "\n");
             csv.Append("DIMER BASIS /au");
             csv.Append("\nDimer,");
             if (energyStrings.Count >= 1) csv.Append(this.Dimer.ToString());
@@ -138,11 +156,96 @@ namespace BWHazel.Sharpen
             csv.Append("\n/au,");
             if (energyStrings.Count >= 3) csv.Append(this.InteractionEnergyHartrees.ToString());
             csv.Append("\n/kJ/mol,");
-            if (energyStrings.Count >= 3) csv.Append(this.InteractionEnergyKJMol.ToString());
+            if (energyStrings.Count >= 3) csv.Append(this.InteractionEnergyKjmol.ToString());
             csv.Append("\nBINDING CONSTANT");
             csv.Append("\n/1,");
             if (energyStrings.Count >= 3) csv.Append(this.BindingConstant.ToString());
             return csv.ToString();
+        }
+
+        public string ToJson()
+        {
+            StringBuilder json = new StringBuilder();
+            json.Append("{");
+            json.Append("\n\t\"Description\" : \"" + this.Description + "\",");
+            json.Append("\n\t\"Basis\" : [");
+            json.Append("\n\t\t{ \"Type\" : \"Dimer\", \"Dimer\" : \"");
+            if (energyStrings.Count >= 1) json.Append(this.Dimer.ToString());
+            json.Append("\", \"MonomerA\" : \"");
+            if (energyStrings.Count >= 2) json.Append(this.MonomerADimerBasis.ToString());
+            json.Append("\", \"MonomerB\" : \"");
+            if (energyStrings.Count >= 3) json.Append(this.MonomerBDimerBasis.ToString());
+            json.Append("\" },");
+            json.Append("\n\t\t{ \"Type\" : \"Monomer\", \"MonomerA\" : \"");
+            if (energyStrings.Count >= 4) json.Append(this.MonomerAMonomerBasis.ToString());
+            json.Append("\", \"MonomerB\" : \"");
+            if (energyStrings.Count == 5) json.Append(this.MonomerBMonomerBasis.ToString());
+            json.Append("\" }");
+            json.Append("\n\t],");
+            json.Append("\n\t\"InteractionEnergy\" : {");
+            json.Append("\n\t\t\"Hartree\" : \"");
+            if (energyStrings.Count >= 3) json.Append(this.InteractionEnergyHartrees.ToString());
+            json.Append("\",");
+            json.Append("\n\t\t\"Kjmol\" : \"");
+            if (energyStrings.Count >= 3) json.Append(this.InteractionEnergyKjmol.ToString());
+            json.Append("\"");
+            json.Append("\n\t},");
+            json.Append("\n\t\"BindingConstant\" : \"");
+            if (energyStrings.Count >= 3) json.Append(this.BindingConstant.ToString());
+            json.Append("\"");
+            json.Append("\n}");
+            return json.ToString();
+        }
+
+        public string ToXml()
+        {
+            string xmlns = @"http://encounter.codeplex.com";
+            StringBuilder xml = new StringBuilder();
+            XmlWriter writer = XmlWriter.Create(xml);
+            writer.WriteStartDocument();
+            writer.WriteStartElement("enc", "Counterpoise", xmlns);
+            writer.WriteStartAttribute("enc", "Description", xmlns);
+            writer.WriteValue(this.Description);
+            writer.WriteEndAttribute();
+            writer.WriteStartElement("enc", "Basis", xmlns);
+            writer.WriteStartAttribute("enc", "Type", xmlns);
+            writer.WriteValue("Dimer");
+            writer.WriteEndAttribute();
+            writer.WriteStartElement("enc", "Dimer", xmlns);
+            if (energyStrings.Count >= 1) writer.WriteValue(this.Dimer.ToString());
+            writer.WriteEndElement();
+            writer.WriteStartElement("enc", "MonomerA", xmlns);
+            if (energyStrings.Count >= 2) writer.WriteValue(this.MonomerADimerBasis.ToString());
+            writer.WriteEndElement();
+            writer.WriteStartElement("enc", "MonomerB", xmlns);
+            if (energyStrings.Count >= 3) writer.WriteValue(this.MonomerBDimerBasis.ToString());
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+            writer.WriteStartElement("enc", "Basis", xmlns);
+            writer.WriteStartAttribute("enc", "Type", xmlns);
+            writer.WriteValue("Monomer");
+            writer.WriteEndAttribute();
+            writer.WriteStartElement("enc", "MonomerA", xmlns);
+            if (energyStrings.Count >= 4) writer.WriteValue(this.MonomerAMonomerBasis.ToString());
+            writer.WriteEndElement();
+            writer.WriteStartElement("enc", "MonomerB", xmlns);
+            if (energyStrings.Count == 5) writer.WriteValue(this.MonomerBMonomerBasis.ToString());
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+            writer.WriteStartElement("enc", "InteractionEnergy", xmlns);
+            writer.WriteStartElement("enc", "Hartree", xmlns);
+            if (energyStrings.Count >= 3) writer.WriteValue(this.InteractionEnergyHartrees.ToString());
+            writer.WriteEndElement();
+            writer.WriteStartElement("enc", "Kjmol", xmlns);
+            if (energyStrings.Count >= 3) writer.WriteValue(this.InteractionEnergyKjmol.ToString());
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+            writer.WriteStartElement("enc", "BindingConstant", xmlns);
+            if (energyStrings.Count >= 3) writer.WriteValue(this.BindingConstant.ToString());
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+            writer.Close();
+            return xml.ToString();
         }
     }
 }

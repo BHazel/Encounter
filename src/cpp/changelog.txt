@@ -1,3 +1,10 @@
+1.1.0.61	13/05/2012	Benedict W. Hazel
+
+	* Calculation description is now obtained and displayed in the user interface
+	* Calculation description is included in exported data
+	* Data can now be exported in JSON and XML
+	* All references to KJ/mol are now Kjmol in variable names and output, excluding CSV
+
 1.0.5.48	16/02/2012	Benedict W. Hazel
 
 	* Detects, and alerts the user, if a selected file is not a Gaussian calculation

@@ -62,6 +62,8 @@
             this.txtBindingConstant = new System.Windows.Forms.TextBox();
             this.dfoOpen = new System.Windows.Forms.OpenFileDialog();
             this.dfsExport = new System.Windows.Forms.SaveFileDialog();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.mnsSharpen.SuspendLayout();
             this.tlsSharpen.SuspendLayout();
             this.SuspendLayout();
@@ -171,7 +173,7 @@
             // 
             this.lblMoleculeEnergy.AutoSize = true;
             this.lblMoleculeEnergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMoleculeEnergy.Location = new System.Drawing.Point(13, 83);
+            this.lblMoleculeEnergy.Location = new System.Drawing.Point(13, 113);
             this.lblMoleculeEnergy.Name = "lblMoleculeEnergy";
             this.lblMoleculeEnergy.Size = new System.Drawing.Size(125, 13);
             this.lblMoleculeEnergy.TabIndex = 2;
@@ -181,7 +183,7 @@
             // 
             this.lblDimerBasis.AutoSize = true;
             this.lblDimerBasis.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDimerBasis.Location = new System.Drawing.Point(13, 110);
+            this.lblDimerBasis.Location = new System.Drawing.Point(13, 140);
             this.lblDimerBasis.Name = "lblDimerBasis";
             this.lblDimerBasis.Size = new System.Drawing.Size(73, 13);
             this.lblDimerBasis.TabIndex = 3;
@@ -190,7 +192,7 @@
             // lblDimerDimer
             // 
             this.lblDimerDimer.AutoSize = true;
-            this.lblDimerDimer.Location = new System.Drawing.Point(13, 137);
+            this.lblDimerDimer.Location = new System.Drawing.Point(13, 167);
             this.lblDimerDimer.Name = "lblDimerDimer";
             this.lblDimerDimer.Size = new System.Drawing.Size(34, 13);
             this.lblDimerDimer.TabIndex = 4;
@@ -198,7 +200,7 @@
             // 
             // txtDimerDimer
             // 
-            this.txtDimerDimer.Location = new System.Drawing.Point(91, 134);
+            this.txtDimerDimer.Location = new System.Drawing.Point(91, 164);
             this.txtDimerDimer.Name = "txtDimerDimer";
             this.txtDimerDimer.Size = new System.Drawing.Size(100, 20);
             this.txtDimerDimer.TabIndex = 5;
@@ -206,7 +208,7 @@
             // lblMonADimer
             // 
             this.lblMonADimer.AutoSize = true;
-            this.lblMonADimer.Location = new System.Drawing.Point(13, 164);
+            this.lblMonADimer.Location = new System.Drawing.Point(13, 194);
             this.lblMonADimer.Name = "lblMonADimer";
             this.lblMonADimer.Size = new System.Drawing.Size(61, 13);
             this.lblMonADimer.TabIndex = 6;
@@ -214,14 +216,14 @@
             // 
             // txtMonADimer
             // 
-            this.txtMonADimer.Location = new System.Drawing.Point(91, 161);
+            this.txtMonADimer.Location = new System.Drawing.Point(91, 191);
             this.txtMonADimer.Name = "txtMonADimer";
             this.txtMonADimer.Size = new System.Drawing.Size(100, 20);
             this.txtMonADimer.TabIndex = 7;
             // 
             // txtMonBDimer
             // 
-            this.txtMonBDimer.Location = new System.Drawing.Point(91, 188);
+            this.txtMonBDimer.Location = new System.Drawing.Point(91, 218);
             this.txtMonBDimer.Name = "txtMonBDimer";
             this.txtMonBDimer.Size = new System.Drawing.Size(100, 20);
             this.txtMonBDimer.TabIndex = 8;
@@ -229,7 +231,7 @@
             // lblMonBDimer
             // 
             this.lblMonBDimer.AutoSize = true;
-            this.lblMonBDimer.Location = new System.Drawing.Point(13, 191);
+            this.lblMonBDimer.Location = new System.Drawing.Point(13, 221);
             this.lblMonBDimer.Name = "lblMonBDimer";
             this.lblMonBDimer.Size = new System.Drawing.Size(61, 13);
             this.lblMonBDimer.TabIndex = 9;
@@ -239,7 +241,7 @@
             // 
             this.lblMonomerBasis.AutoSize = true;
             this.lblMonomerBasis.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMonomerBasis.Location = new System.Drawing.Point(13, 225);
+            this.lblMonomerBasis.Location = new System.Drawing.Point(13, 255);
             this.lblMonomerBasis.Name = "lblMonomerBasis";
             this.lblMonomerBasis.Size = new System.Drawing.Size(92, 13);
             this.lblMonomerBasis.TabIndex = 10;
@@ -248,7 +250,7 @@
             // lblMonAMon
             // 
             this.lblMonAMon.AutoSize = true;
-            this.lblMonAMon.Location = new System.Drawing.Point(13, 252);
+            this.lblMonAMon.Location = new System.Drawing.Point(13, 282);
             this.lblMonAMon.Name = "lblMonAMon";
             this.lblMonAMon.Size = new System.Drawing.Size(61, 13);
             this.lblMonAMon.TabIndex = 11;
@@ -256,14 +258,14 @@
             // 
             // txtMonAMon
             // 
-            this.txtMonAMon.Location = new System.Drawing.Point(91, 249);
+            this.txtMonAMon.Location = new System.Drawing.Point(91, 279);
             this.txtMonAMon.Name = "txtMonAMon";
             this.txtMonAMon.Size = new System.Drawing.Size(100, 20);
             this.txtMonAMon.TabIndex = 12;
             // 
             // txtMonBMon
             // 
-            this.txtMonBMon.Location = new System.Drawing.Point(91, 276);
+            this.txtMonBMon.Location = new System.Drawing.Point(91, 306);
             this.txtMonBMon.Name = "txtMonBMon";
             this.txtMonBMon.Size = new System.Drawing.Size(100, 20);
             this.txtMonBMon.TabIndex = 13;
@@ -271,7 +273,7 @@
             // lblMonBMon
             // 
             this.lblMonBMon.AutoSize = true;
-            this.lblMonBMon.Location = new System.Drawing.Point(13, 279);
+            this.lblMonBMon.Location = new System.Drawing.Point(13, 309);
             this.lblMonBMon.Name = "lblMonBMon";
             this.lblMonBMon.Size = new System.Drawing.Size(61, 13);
             this.lblMonBMon.TabIndex = 14;
@@ -281,7 +283,7 @@
             // 
             this.lblInteractionEnergy.AutoSize = true;
             this.lblInteractionEnergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInteractionEnergy.Location = new System.Drawing.Point(252, 83);
+            this.lblInteractionEnergy.Location = new System.Drawing.Point(252, 113);
             this.lblInteractionEnergy.Name = "lblInteractionEnergy";
             this.lblInteractionEnergy.Size = new System.Drawing.Size(111, 13);
             this.lblInteractionEnergy.TabIndex = 15;
@@ -290,7 +292,7 @@
             // lblInteractionHartree
             // 
             this.lblInteractionHartree.AutoSize = true;
-            this.lblInteractionHartree.Location = new System.Drawing.Point(252, 137);
+            this.lblInteractionHartree.Location = new System.Drawing.Point(252, 167);
             this.lblInteractionHartree.Name = "lblInteractionHartree";
             this.lblInteractionHartree.Size = new System.Drawing.Size(24, 13);
             this.lblInteractionHartree.TabIndex = 16;
@@ -299,7 +301,7 @@
             // lblInteractionKjmol
             // 
             this.lblInteractionKjmol.AutoSize = true;
-            this.lblInteractionKjmol.Location = new System.Drawing.Point(252, 164);
+            this.lblInteractionKjmol.Location = new System.Drawing.Point(252, 194);
             this.lblInteractionKjmol.Name = "lblInteractionKjmol";
             this.lblInteractionKjmol.Size = new System.Drawing.Size(44, 13);
             this.lblInteractionKjmol.TabIndex = 17;
@@ -307,14 +309,14 @@
             // 
             // txtInteractionHartree
             // 
-            this.txtInteractionHartree.Location = new System.Drawing.Point(305, 134);
+            this.txtInteractionHartree.Location = new System.Drawing.Point(305, 164);
             this.txtInteractionHartree.Name = "txtInteractionHartree";
             this.txtInteractionHartree.Size = new System.Drawing.Size(100, 20);
             this.txtInteractionHartree.TabIndex = 18;
             // 
             // txtInteractionKjmol
             // 
-            this.txtInteractionKjmol.Location = new System.Drawing.Point(305, 161);
+            this.txtInteractionKjmol.Location = new System.Drawing.Point(305, 191);
             this.txtInteractionKjmol.Name = "txtInteractionKjmol";
             this.txtInteractionKjmol.Size = new System.Drawing.Size(100, 20);
             this.txtInteractionKjmol.TabIndex = 19;
@@ -323,7 +325,7 @@
             // 
             this.lblBindingConstant.AutoSize = true;
             this.lblBindingConstant.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBindingConstant.Location = new System.Drawing.Point(252, 225);
+            this.lblBindingConstant.Location = new System.Drawing.Point(252, 255);
             this.lblBindingConstant.Name = "lblBindingConstant";
             this.lblBindingConstant.Size = new System.Drawing.Size(103, 13);
             this.lblBindingConstant.TabIndex = 20;
@@ -332,7 +334,7 @@
             // lblNoUnits
             // 
             this.lblNoUnits.AutoSize = true;
-            this.lblNoUnits.Location = new System.Drawing.Point(252, 252);
+            this.lblNoUnits.Location = new System.Drawing.Point(252, 282);
             this.lblNoUnits.Name = "lblNoUnits";
             this.lblNoUnits.Size = new System.Drawing.Size(18, 13);
             this.lblNoUnits.TabIndex = 21;
@@ -340,7 +342,7 @@
             // 
             // txtBindingConstant
             // 
-            this.txtBindingConstant.Location = new System.Drawing.Point(305, 249);
+            this.txtBindingConstant.Location = new System.Drawing.Point(305, 279);
             this.txtBindingConstant.Name = "txtBindingConstant";
             this.txtBindingConstant.Size = new System.Drawing.Size(100, 20);
             this.txtBindingConstant.TabIndex = 22;
@@ -352,14 +354,33 @@
             // 
             // dfsExport
             // 
-            this.dfsExport.Filter = "Comma Separated Values|*.csv";
+            this.dfsExport.Filter = "Comma Separated Values|*.csv|JSON|*.json|XML|*.xml";
             this.dfsExport.Title = "Export";
+            // 
+            // lblDescription
+            // 
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescription.Location = new System.Drawing.Point(16, 86);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(71, 13);
+            this.lblDescription.TabIndex = 23;
+            this.lblDescription.Text = "Description";
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.Location = new System.Drawing.Point(91, 83);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(314, 20);
+            this.txtDescription.TabIndex = 24;
             // 
             // frmSharpen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 306);
+            this.ClientSize = new System.Drawing.Size(431, 335);
+            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.txtBindingConstant);
             this.Controls.Add(this.lblNoUnits);
             this.Controls.Add(this.lblBindingConstant);
@@ -433,6 +454,8 @@
         private System.Windows.Forms.TextBox txtBindingConstant;
         private System.Windows.Forms.OpenFileDialog dfoOpen;
         private System.Windows.Forms.SaveFileDialog dfsExport;
+        private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.TextBox txtDescription;
     }
 }
 

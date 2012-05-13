@@ -18,6 +18,7 @@
     IBOutlet NSMenuItem* exportMenuItem;
     IBOutlet NSToolbarItem* openToolbarItem;
     IBOutlet NSToolbarItem* exportToolbarItem;
+    IBOutlet NSTextField* txtDescription;
     IBOutlet NSTextField* txtDimerDimer;
     IBOutlet NSTextField* txtMonADimer;
     IBOutlet NSTextField* txtMonBDimer;
@@ -26,6 +27,8 @@
     IBOutlet NSTextField* txtInteractionHartree;
     IBOutlet NSTextField* txtInteractionKjmol;
     IBOutlet NSTextField* txtBindingConstant;
+    IBOutlet NSView* formatsView;
+    IBOutlet NSPopUpButton* formatsPopUpButton;
 }
 -(IBAction)actionOpen:(id)sender;
 -(IBAction)actionExport:(id)sender;

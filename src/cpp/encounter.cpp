@@ -30,7 +30,10 @@ int Encounter::setEnergies(QString filename)
     QTextStream fileReader(&file);
     QString line = fileReader.readLine(132);
     bool gaussianCalc = false;
+    int hyphenLines = 0;
+    bool descriptionFound = false;
 
+    _description = "";
     if (energyStrings.count() != 0) energyStrings.clear();
 
     while (!line.isNull())
@@ -42,6 +45,13 @@ int Encounter::setEnergies(QString filename)
         }
         else gaussianCalc = true;
 
+        if (hyphenLines == 5)
+        {
+            _description = line.trimmed();
+            hyphenLines = 0;
+            descriptionFound = true;
+        }
+        if (line.startsWith(" ----") && !descriptionFound) hyphenLines++;
         if (line.startsWith(" # ") && !line.contains("counterpoise=2", Qt::CaseInsensitive))
         {
             file.close();
@@ -80,6 +90,7 @@ void Encounter::setInteractionEnergies()
 QString Encounter::toCsv()
 {
     QString csv;
+    csv.append(this->getDescription() + "\n");
     csv.append("DIMER BASIS /au");
     csv.append("\nDimer,");
     if (energyStrings.length() >= 1) csv.append(QString::number(this->getDimer(), 'g', 14));
@@ -94,18 +105,103 @@ QString Encounter::toCsv()
     if (energyStrings.length() == 5) csv.append(QString::number(this->getMonomerBMonomerBasis(), 'g', 14));
     csv.append("\nINTERACTION ENERGY");
     csv.append("\n/au,");
-    if (energyStrings.length() >= 3) csv.append(QString::number(this->getInteractionHartree(), 'g', 14));
+    if (energyStrings.length() >= 3) csv.append(QString::number(this->getInteractionEnergyHartrees(), 'g', 14));
     csv.append("\n/kJ/mol,");
-    if (energyStrings.length() >= 3) csv.append(QString::number(this->getInteractionKjmol(), 'g', 14));
+    if (energyStrings.length() >= 3) csv.append(QString::number(this->getInteractionEnergyKjmol(), 'g', 14));
     csv.append("\nBINDING CONSTANT");
     csv.append("\n/1,");
     if (energyStrings.length() >= 3) csv.append(QString::number(this->getBindingConstant(), 'g', 14));
     return csv;
 }
 
+QString Encounter::toJson()
+{
+    QString json;
+    json.append("{");
+    json.append("\n\t\"Description\" : \"" + this->getDescription() + "\",");
+    json.append("\n\t\"Basis\" : [");
+    json.append("\n\t\t{ \"Type\" : \"Dimer\", \"Dimer\" : \"");
+    if (energyStrings.length() >= 1) json.append(QString::number(this->getDimer()));
+    json.append("\", \"MonomerA\" : \"");
+    if (energyStrings.length() >= 2) json.append(QString::number(this->getMonomerADimerBasis()));
+    json.append("\", \"MonomerB\" : \"");
+    if (energyStrings.length() >= 3) json.append(QString::number(this->getMonomerBDimerBasis()));
+    json.append("\" },");
+    json.append("\n\t\t{ \"Type\" : \"Monomer\", \"MonomerA\" : \"");
+    if (energyStrings.length() >= 4) json.append(QString::number(this->getMonomerAMonomerBasis()));
+    json.append("\", \"MonomerB\" : \"");
+    if (energyStrings.length() == 5) json.append(QString::number(this->getMonomerBMonomerBasis()));
+    json.append("\" }");
+    json.append("\n\t],");
+    json.append("\n\t\"InteractionEnergy\" : {");
+    json.append("\n\t\t\"Hartree\" : \"");
+    if (energyStrings.length() >= 3) json.append(QString::number(this->getInteractionEnergyHartrees()));
+    json.append("\",");
+    json.append("\n\t\t\"Kjmol\" : \"");
+    if (energyStrings.length() >= 3) json.append(QString::number(this->getInteractionEnergyKjmol()));
+    json.append("\"");
+    json.append("\n\t},");
+    json.append("\n\t\"BindingConstant\" : \"");
+    if (energyStrings.length() >= 3) json.append(QString::number(this->getBindingConstant()));
+    json.append("\"");
+    json.append("\n}");
+    return json;
+}
+
+QString Encounter::toXml()
+{
+    QString xml;
+    QString xmlns("http://encounter.codeplex.com");
+    QXmlStreamWriter writer(&xml);
+    writer.setAutoFormatting(true);
+    writer.writeNamespace(xmlns, "enc");
+    writer.writeStartDocument();
+    writer.writeStartElement(xmlns, "Counterpoise");
+    writer.writeAttribute(xmlns, "Description", this->getDescription());
+    writer.writeStartElement(xmlns, "Basis");
+    writer.writeAttribute(xmlns, "Type", "Dimer");
+    writer.writeStartElement(xmlns, "Dimer");
+    if (energyStrings.length() >= 1) writer.writeCharacters(QString::number(this->getDimer()));
+    writer.writeEndElement();
+    writer.writeStartElement(xmlns, "MonomerA");
+    if (energyStrings.length() >= 2) writer.writeCharacters(QString::number(this->getMonomerADimerBasis()));
+    writer.writeEndElement();
+    writer.writeStartElement(xmlns, "MonomerB");
+    if (energyStrings.length() >= 3) writer.writeCharacters(QString::number(this->getMonomerBDimerBasis()));
+    writer.writeEndElement();
+    writer.writeEndElement();
+    writer.writeStartElement(xmlns, "Basis");
+    writer.writeAttribute(xmlns, "Type", "Monomer");
+    writer.writeStartElement(xmlns, "MonomerA");
+    if (energyStrings.length() >= 4) writer.writeCharacters(QString::number(this->getMonomerAMonomerBasis()));
+    writer.writeEndElement();
+    writer.writeStartElement(xmlns, "MonomerB");
+    if (energyStrings.length() == 5) writer.writeCharacters(QString::number(this->getMonomerBMonomerBasis()));
+    writer.writeEndElement();
+    writer.writeEndElement();
+    writer.writeStartElement(xmlns, "InteractionEnergy");
+    writer.writeStartElement(xmlns, "Hartree");
+    if (energyStrings.length() >= 3) writer.writeCharacters(QString::number(this->getInteractionEnergyHartrees()));
+    writer.writeEndElement();
+    writer.writeStartElement(xmlns, "Kjmol");
+    if (energyStrings.length() >= 3) writer.writeCharacters(QString::number(this->getInteractionEnergyKjmol()));
+    writer.writeEndElement();
+    writer.writeEndElement();
+    writer.writeStartElement(xmlns, "BindingConstant");
+    if (energyStrings.length() >= 3) writer.writeCharacters(QString::number(this->getBindingConstant()));
+    writer.writeEndElement();
+    writer.writeEndElement();
+    return xml;
+}
+
 int Encounter::energyCount()
 {
     return energyStrings.count();
+}
+
+QString Encounter::getDescription()
+{
+    return this->_description;
 }
 
 double Encounter::getDimer()
@@ -133,12 +229,12 @@ double Encounter::getMonomerBMonomerBasis()
     return this->_monBmonB;
 }
 
-double Encounter::getInteractionHartree()
+double Encounter::getInteractionEnergyHartrees()
 {
     return this->_interactHartree;
 }
 
-double Encounter::getInteractionKjmol()
+double Encounter::getInteractionEnergyKjmol()
 {
     return this->_interactKjmol;
 }

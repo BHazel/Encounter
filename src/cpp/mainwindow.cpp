@@ -64,23 +64,27 @@ void MainWindow::openFile()
 
 void MainWindow::exportFile()
 {
-    QString exportFile = QFileDialog::getSaveFileName(this, tr("Export Data"), QDir::currentPath(), tr("Comma Separated Values (*.csv)"));
+    QString fileType;
+    QString exportFile = QFileDialog::getSaveFileName(this, tr("Export Data"), QDir::currentPath(), tr("Comma Separated Values (*.csv);;JSON (*.json);;XML (*.xml)"), &fileType, 0);
     if (exportFile != "")
     {
-        QFile csvFile(exportFile);
-        if (!csvFile.open(QIODevice::WriteOnly))
+        QFile dataFile(exportFile);
+        if (!dataFile.open(QIODevice::WriteOnly))
         {
             QMessageBox::critical(this, "Encounter", "File cannot be saved");
         }
-        QTextStream csvStream(&csvFile);
-        csvStream << encounter.toCsv();
-        csvStream.flush();
-        csvFile.close();
+        QTextStream writer(&dataFile);
+        if (fileType == "Comma Separated Values (*.csv)") writer << encounter.toCsv();
+        else if (fileType == "JSON (*.json)") writer << encounter.toJson();
+        else if (fileType == "XML (*.xml)") writer << encounter.toXml();
+        writer.flush();
+        dataFile.close();
     }
 }
 
 void MainWindow::setUi()
 {
+    ui->txtDescription->setText(encounter.getDescription());
     if (encounter.energyCount() >= 1) ui->txtDimerDimer->setText(QString::number(encounter.getDimer(), 'g', 14));
     if (encounter.energyCount() >= 2) ui->txtMonADimer->setText(QString::number(encounter.getMonomerADimerBasis(), 'g', 14));
     if (encounter.energyCount() >= 3)
@@ -88,14 +92,15 @@ void MainWindow::setUi()
         ui->txtMonBDimer->setText(QString::number(encounter.getMonomerBDimerBasis(), 'g', 14));
         if (encounter.energyCount() >= 4) ui->txtMonAMon->setText(QString::number(encounter.getMonomerAMonomerBasis(), 'g', 14));
         if (encounter.energyCount() == 5) ui->txtMonBMon->setText(QString::number(encounter.getMonomerBMonomerBasis(), 'g', 14));
-        ui->txtInteractionHartree->setText(QString::number(encounter.getInteractionHartree(), 'g', 14));
-        ui->txtInteractionKjmol->setText(QString::number(encounter.getInteractionKjmol(), 'g', 14));
+        ui->txtInteractionHartree->setText(QString::number(encounter.getInteractionEnergyHartrees(), 'g', 14));
+        ui->txtInteractionKjmol->setText(QString::number(encounter.getInteractionEnergyKjmol(), 'g', 14));
         ui->txtBindingConstant->setText(QString::number(encounter.getBindingConstant(), 'g', 14));
     }
 }
 
 void MainWindow::resetUi()
 {
+    ui->txtDescription->setText("");
     ui->txtDimerDimer->setText("");
     ui->txtMonADimer->setText("");
     ui->txtMonBDimer->setText("");

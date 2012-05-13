@@ -4,10 +4,11 @@ import gnu.getopt.*;
 public class JCounterpoise
 {
     static final String JC_TITLE = "JCounterpoise (Java Implementation)";
-    static final String JC_VERSION = "1.1.1.40";
+    static final String JC_VERSION = "1.2.0.46";
     static final String JC_COPYRIGHT = "(c) Benedict W. Hazel, 2011-2012";
     static String calcFile = "";
     static String exportFile = "";
+    static String format = "";
     static Encounter encounter;
 
     public static void main(String[] args) {
@@ -15,14 +16,18 @@ public class JCounterpoise
 
         // Process Command-Line Arguments
         LongOpt[] options = {
+            new LongOpt("format", LongOpt.REQUIRED_ARGUMENT, null, 'f'),
             new LongOpt("output", LongOpt.REQUIRED_ARGUMENT, null, 'o'),
             new LongOpt("version", LongOpt.NO_ARGUMENT, null, 'v')
         };
-        Getopt g = new Getopt("JCounterpoise", args, "o:v", options);
+        Getopt g = new Getopt("JCounterpoise", args, "f:o:v", options);
         g.setOpterr(false);
         int optChar;
         while ((optChar = g.getopt()) != -1) {
             switch (optChar) {
+                case 'f':
+                    format = g.getOptarg();
+                    break;
                 case 'o':
                     exportFile = g.getOptarg();
                     break;
@@ -72,6 +77,9 @@ public class JCounterpoise
             catch (IOException ex) {
                 System.err.println("ERROR: An output error occurred while writing " + exportFile);
             }
+            catch (IllegalArgumentException ex) {
+                System.err.println("ERROR: Unknown file type selected");
+            }
         }
     }
 
@@ -92,10 +100,19 @@ public class JCounterpoise
         }
     }
 
-    private static void exportFile() throws IOException {
+    private static void exportFile() throws IllegalArgumentException, IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(exportFile));
         try {
-            writer.write(encounter.toCsv());
+            if (format.toLowerCase().contentEquals("csv") || format.toLowerCase().contentEquals("c")) {
+                writer.write(encounter.toCsv());
+            }
+            else if (format.toLowerCase().contentEquals("json") || format.toLowerCase().contentEquals("j")) {
+                writer.write(encounter.toJson());
+            }
+            else if (format.toLowerCase().contentEquals("xml") || format.toLowerCase().contentEquals("x")) {
+                writer.write(encounter.toXml());
+            }
+            else throw new IllegalArgumentException();
         }
         finally {
             writer.close();
@@ -103,8 +120,9 @@ public class JCounterpoise
     }
 
     private static void setUi() {
+        System.out.println(encounter.getDescription() + "\n");
         if (encounter.energyCount() >= 1) {
-            System.out.println("DIMER BASIS:");
+            System.out.println("DIMER BASIS /au:");
             System.out.println("  Dimer =       " + String.valueOf(encounter.getDimer()));
         }
         if (encounter.energyCount() >= 2) {
@@ -113,15 +131,15 @@ public class JCounterpoise
         if (encounter.energyCount() >= 3) {
             System.out.println("  Monomer B =   " + String.valueOf(encounter.getMonomerBDimerBasis()));
             if (encounter.energyCount() >= 4) {
-                System.out.println("MONOMER BASIS:");
+                System.out.println("MONOMER BASIS /au:");
                 System.out.println("  Monomer A =    " + String.valueOf(encounter.getMonomerAMonomerBasis()));
             }
             if (encounter.energyCount() == 5) {
                 System.out.println("  Monomer B =    " + String.valueOf(encounter.getMonomerBMonomerBasis()));
             }
             System.out.println("\nInteraction Energy =");
-            System.out.println("  " + String.valueOf(encounter.getInteractionHartree()) + " au");
-            System.out.println("  " + String.valueOf(encounter.getInteractionKjmol()) + " kJ/mol");
+            System.out.println("  " + String.valueOf(encounter.getInteractionEnergyHartrees()) + " au");
+            System.out.println("  " + String.valueOf(encounter.getInteractionEnergyKjmol()) + " kJ/mol");
             System.out.println("\nBinding Constant =");
             System.out.println("  " + String.valueOf(encounter.getBindingConstant()));
         }

@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#define ENCOUNTER_ABOUT "Encounter (C++/Qt Implementation) v.1.0.5.48\n\n(c) Benedict W. Hazel, 2011-2012"
+#define ENCOUNTER_ABOUT "Encounter (C++/Qt Implementation) v.1.1.0.61\n\n(c) Benedict W. Hazel, 2011-2012"
 
 #include <encounter.h>
 #include <QFileDialog>

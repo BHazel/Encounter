@@ -1,3 +1,12 @@
+1.2.0.46        13/05/2012      Benedict Hazel
+
+	* (*.java): Calculation description is now obtained and displayed in the user interface
+	* (*.java): Calculation description is included in exported data
+	* (*.java): Data can now be exported in JSON and XML
+	* (*.java): All references to KJ/mol are now Kjmol in variable names and output,
+                                        excluding CSV
+        * JCounterpoise.java: New -f/--format= options to control exported data format
+
 1.1.1.40	16/02/2012	Benedict Hazel
 
 	* JCounterpoise.java: Consistency of error notifications improved

@@ -2,7 +2,7 @@
 
 #######################################################################
 
-# JCounterpoise 1.1.1.40 Configuration Script
+# JCounterpoise 1.2.0.46 Configuration Script
 
 # This script will generate the necessary Makefile to
 # compile JCounterpoise. Edit the settings as necessary in
@@ -40,7 +40,7 @@ SHDIR=~/bin
 
 # DO NOT EDIT BEYOND THIS LINE!
 
-JCP_VERSION=1.1.1.40
+JCP_VERSION=1.2.0.46
 
 echo Generating Makefile...
 cat << EOF > Makefile

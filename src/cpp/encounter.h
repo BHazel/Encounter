@@ -9,6 +9,7 @@
 #include <QTextStream>
 #include <QString>
 #include <QList>
+#include <QXmlStreamWriter>
 
 /*
  Encounter: "ENergy COUNTERpoise"
@@ -20,6 +21,7 @@ class Encounter
 
 private:
     QRegExp energyExpression;
+    QString _description;
     double _dimer;
     double _monAdimer;
     double _monBdimer;
@@ -35,14 +37,17 @@ public:
     int setEnergies(QString filename);
     void setInteractionEnergies();
     QString toCsv();
+    QString toJson();
+    QString toXml();
     int energyCount();
+    QString getDescription();
     double getDimer();
     double getMonomerADimerBasis();
     double getMonomerBDimerBasis();
     double getMonomerAMonomerBasis();
     double getMonomerBMonomerBasis();
-    double getInteractionHartree();
-    double getInteractionKjmol();
+    double getInteractionEnergyHartrees();
+    double getInteractionEnergyKjmol();
     double getBindingConstant();
 };
 
