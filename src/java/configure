@@ -2,7 +2,7 @@
 
 #######################################################################
 
-# JCounterpoise 1.2.0.46 Configuration Script
+# JCounterpoise 1.2.1.47 Configuration Script
 
 # This script will generate the necessary Makefile to
 # compile JCounterpoise. Edit the settings as necessary in
@@ -34,13 +34,14 @@ DIRFLAG=-cp
 # Output directory for shell script (absolute path recommended)
 SHDIR=~/bin
 
-# Shell: Currently only bash
+# Shell to run script
+SHSHELL=bash
 
 #######################################################################
 
 # DO NOT EDIT BEYOND THIS LINE!
 
-JCP_VERSION=1.2.0.46
+JCP_VERSION=1.2.1.47
 
 echo Generating Makefile...
 cat << EOF > Makefile
@@ -97,13 +98,7 @@ echo Java interpreter path flag: "$DIRFLAG"
 echo Shell script output directory: "$SHDIR"
 echo Generating shell script...
 
-echo -e "#!/bin/bash\n" > jcp
-echo -e "if [ \"\$1\" == \"\" ]; then" >> jcp
-echo -e "       $JI $DIRFLAG $BINDIR JCounterpoise" >> jcp
-echo -e "elif [ \"\$1\" != \"\" -a \"\$2\" == \"-o\" -a \"\$3\" != \"\" ]; then" >> jcp
-echo -e "       $JI $DIRFLAG $BINDIR JCounterpoise \`pwd\`/\"\$1\" \"\$2\" \"\$3\"" >> jcp
-echo -e "else" >> jcp
-echo -e "       $JI $DIRFLAG $BINDIR JCounterpoise \`pwd\`/\"\$1\"" >> jcp
-echo -e "fi" >> jcp
+echo -e "#!/bin/$SHSHELL\n" > jcp
+echo -e "$JI $DIRFLAG $BINDIR JCounterpoise \$*" >> jcp
 
 echo Now can now run make to install JCounterpoise

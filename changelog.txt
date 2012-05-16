@@ -1,3 +1,7 @@
+0007		16/05/2012	Benedict W. Hazel
+
+	* Java implementation updated to version 1.2.1.47
+
 0006		13/05/2012	Benedict W. Hazel
 
 	* C# implementation updated to version 1.1.0.34

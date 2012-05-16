@@ -4,7 +4,7 @@ import gnu.getopt.*;
 public class JCounterpoise
 {
     static final String JC_TITLE = "JCounterpoise (Java Implementation)";
-    static final String JC_VERSION = "1.2.0.46";
+    static final String JC_VERSION = "1.2.1.47";
     static final String JC_COPYRIGHT = "(c) Benedict W. Hazel, 2011-2012";
     static String calcFile = "";
     static String exportFile = "";
