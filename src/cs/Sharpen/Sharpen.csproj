@@ -62,6 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFormatters\CsvDataFormatter.cs" />
+    <Compile Include="DataFormatters\JsonDataFormatter.cs" />
+    <Compile Include="DataFormatters\XmlDataFormatter.cs" />
     <Compile Include="Encounter.cs" />
     <Compile Include="frmSharpen.cs">
       <SubType>Form</SubType>
@@ -69,6 +72,8 @@
     <Compile Include="frmSharpen.Designer.cs">
       <DependentUpon>frmSharpen.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataFormatters\IDataFormatter.cs" />
+    <Compile Include="IEncounter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmSharpen.resx">

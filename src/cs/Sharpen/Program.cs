@@ -1,20 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// <copyright file="Program.cs" company="Benedict W. Hazel">
+//      Benedict W. Hazel, 2011-2012
+// </copyright>
+// <author>Benedict W. Hazel</author>
+// <summary>
+//      Program: Class containing the main entry point for the program.
+// </summary>
+
+using System;
 using System.Windows.Forms;
 
 namespace BWHazel.Sharpen
 {
-    static class Program
+    /// <summary>
+    /// Main program class.
+    /// </summary>
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmSharpen());
+            Application.Run(new frmSharpen(new Encounter()));
         }
     }
 }
