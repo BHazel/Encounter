@@ -101,8 +101,9 @@ namespace BWHazel.Sharpen
         }
 
         /// <summary>
-        /// Exports a file using a <see cref="System.Windows.Forms.SaveFileDialog"/>.
+        /// Exports data to a file using a <see cref="System.Windows.Forms.SaveFileDialog"/>.
         /// </summary>
+        /// <exception cref="System.ApplicationException">Exception thrown if an unknown file type is selected.</exception>
         private void ExportFile()
         {
             if (dfsExport.ShowDialog() == DialogResult.OK)

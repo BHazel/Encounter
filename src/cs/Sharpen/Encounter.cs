@@ -144,6 +144,8 @@ namespace BWHazel.Sharpen
         /// Processes the calculation file and stores energy values.
         /// </summary>
         /// <param name="filename">Counterpoise correction calculation file.</param>
+        /// <exception cref="System.ApplicationException">Exception thrown</exception>
+        /// <exception cref="System.ArgumentException">Exception thrown if the file is not a Gaussian counterpoise correction calculation.</exception>
         public void SetEnergies(string filename)
         {
             StreamReader reader = new StreamReader(filename);
