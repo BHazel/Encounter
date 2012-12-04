@@ -1,83 +1,15 @@
 #import <Foundation/Foundation.h>
-#import "BHIEncounter.h"
 
 /*!
  @copyright (c) Benedict W. Hazel, 2011-2012
- @header BHEncounter.h Class to process and store counterpoise correction calculation data.
+ @header BHIEncounter.h Protocol for classes processing and storing data from counterpoise correction calculations.
  */
 
 /*!
- @interface BHEncounter
- @abstract Class to process and store counterpoise correction calculation data.
+ @protocol BHIEncounter
+ @abstract Defines methods implemented by classes processing counterpoise correction calculations.
  */
-@interface BHEncounter : NSObject <BHIEncounter> {
-@private
-    /*!
-     @var energyExpression
-     @abstract Regular expression to detect energy values in calculation file.
-     */
-    NSRegularExpression* energyExpression;
-    
-    /*!
-     @var energyStrings
-     @abstract Variable to store energy values extracted from the calculation file.
-     */
-    NSMutableArray* energyStrings;
-    
-    /*!
-     @var _description
-     @abstract Calculation description.
-     */
-    NSString* _description;
-    
-    /*!
-     @var _dimer
-     @abstract Dimer energy.
-     */
-    double _dimer;
-    
-    /*!
-     @var _monAdimer
-     @abstract Monomer A energy in dimer basis.
-     */
-    double _monAdimer;
-    
-    /*!
-     @var _monBdimer
-     @abstract Monomer B energy in dimer basis.
-     */
-    double _monBdimer;
-    
-    /*!
-     @var _monAmonA
-     @abstract Monomer A energy in Monomer A basis.
-     */
-    double _monAmonA;
-    
-    /*!
-     @var _monBmonB
-     @abstract Monomer B energy in Monomer B basis.
-     */
-    double _monBmonB;
-    
-    /*!
-     @var _interactHartree
-     @abstract Interaction energy in Hartree atomic units.
-     */
-    double _interactHartree;
-    
-    /*!
-     @var _interactKjmol
-     @abstract Interaction energy in kJ/mol.
-     */
-    double _interactKjmol;
-    
-    /*!
-     @var _bindingConstant
-     @abstract Binding constant.
-     */
-    double _bindingConstant;
-}
+@protocol BHIEncounter <NSObject>
 
 /*!
  @property description

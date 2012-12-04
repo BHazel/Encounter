@@ -17,6 +17,9 @@
 		8F2D14C314E9EA230064E40C /* Encounter.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8F2D14C214E9EA230064E40C /* Encounter.icns */; };
 		8F90C70214E2086400893221 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F90C70014E2086400893221 /* MainMenu.xib */; };
 		8FDF15F414E20C9500310EAA /* XenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDF15F314E20C9500310EAA /* XenController.m */; };
+		8FE07329165EDC4A0029CC4B /* BHCsvDataFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE07328165EDC4A0029CC4B /* BHCsvDataFormatter.m */; };
+		8FE07334165EEBBF0029CC4B /* BHJsonDataFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE07333165EEBBF0029CC4B /* BHJsonDataFormatter.m */; };
+		8FE07337165EED470029CC4B /* BHXmlDataFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE07336165EED470029CC4B /* BHXmlDataFormatter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,14 @@
 		8F90C70114E2086400893221 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		8FDF15F214E20C9500310EAA /* XenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XenController.h; sourceTree = "<group>"; };
 		8FDF15F314E20C9500310EAA /* XenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XenController.m; sourceTree = "<group>"; };
+		8FE07327165EDC4A0029CC4B /* BHCsvDataFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHCsvDataFormatter.h; sourceTree = "<group>"; };
+		8FE07328165EDC4A0029CC4B /* BHCsvDataFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHCsvDataFormatter.m; sourceTree = "<group>"; };
+		8FE07332165EEBBF0029CC4B /* BHJsonDataFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHJsonDataFormatter.h; sourceTree = "<group>"; };
+		8FE07333165EEBBF0029CC4B /* BHJsonDataFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHJsonDataFormatter.m; sourceTree = "<group>"; };
+		8FE07335165EED470029CC4B /* BHXmlDataFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHXmlDataFormatter.h; sourceTree = "<group>"; };
+		8FE07336165EED470029CC4B /* BHXmlDataFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHXmlDataFormatter.m; sourceTree = "<group>"; };
+		8FED2984164EF4120024A3B7 /* BHIEncounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHIEncounter.h; sourceTree = "<group>"; };
+		8FED2986164EF7A00024A3B7 /* BHIDataFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHIDataFormatter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,12 +103,20 @@
 		8F005B9613AE8B13004BBFED /* Xen */ = {
 			isa = PBXGroup;
 			children = (
+				8F005B9713AE8B13004BBFED /* Supporting Files */,
 				8F90C70014E2086400893221 /* MainMenu.xib */,
 				8F005BA213AE8B13004BBFED /* XenAppDelegate.h */,
 				8F005BA313AE8B13004BBFED /* XenAppDelegate.m */,
-				8F005B9713AE8B13004BBFED /* Supporting Files */,
 				8F005BC413AE8B47004BBFED /* BHEncounter.h */,
 				8F005BC513AE8B47004BBFED /* BHEncounter.m */,
+				8FED2986164EF7A00024A3B7 /* BHIDataFormatter.h */,
+				8FED2984164EF4120024A3B7 /* BHIEncounter.h */,
+				8FE07327165EDC4A0029CC4B /* BHCsvDataFormatter.h */,
+				8FE07328165EDC4A0029CC4B /* BHCsvDataFormatter.m */,
+				8FE07332165EEBBF0029CC4B /* BHJsonDataFormatter.h */,
+				8FE07333165EEBBF0029CC4B /* BHJsonDataFormatter.m */,
+				8FE07335165EED470029CC4B /* BHXmlDataFormatter.h */,
+				8FE07336165EED470029CC4B /* BHXmlDataFormatter.m */,
 				8FDF15F214E20C9500310EAA /* XenController.h */,
 				8FDF15F314E20C9500310EAA /* XenController.m */,
 			);
@@ -144,7 +163,7 @@
 		8F005B8313AE8B13004BBFED /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = TransWandsworth;
 			};
 			buildConfigurationList = 8F005B8613AE8B13004BBFED /* Build configuration list for PBXProject "Xen" */;
@@ -188,6 +207,9 @@
 				8F005BA413AE8B13004BBFED /* XenAppDelegate.m in Sources */,
 				8F005BC613AE8B47004BBFED /* BHEncounter.m in Sources */,
 				8FDF15F414E20C9500310EAA /* XenController.m in Sources */,
+				8FE07329165EDC4A0029CC4B /* BHCsvDataFormatter.m in Sources */,
+				8FE07334165EEBBF0029CC4B /* BHJsonDataFormatter.m in Sources */,
+				8FE07337165EED470029CC4B /* BHXmlDataFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,13 +243,13 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -236,12 +258,12 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -249,11 +271,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Xen/Xen-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "Xen/Xen-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -265,11 +289,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Xen/Xen-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "Xen/Xen-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";

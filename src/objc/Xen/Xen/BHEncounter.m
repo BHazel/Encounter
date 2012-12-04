@@ -25,7 +25,7 @@
     int hyphenLines = 0;
     BOOL descriptionFound = NO;
     
-    _description = [NSString stringWithString:@""];
+    _description = @"";
     if ([energyStrings count] != 0) [energyStrings removeAllObjects];
     
     for (int i = 0; i < [textLines count]; i++) {
@@ -176,7 +176,7 @@
     return xml;
 }
 
--(int)energyCount {
+-(int)getEnergyCount {
     return (int)[energyStrings count];
 }
 

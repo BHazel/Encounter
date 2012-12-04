@@ -1,12 +1,9 @@
-//
-//  XenAppDelegate.m
-//  Xen
-//
-//  Created by Benedict Hazel on 19/06/2011.
-//  Copyright 2011 TransWandsworth. All rights reserved.
-//
-
 #import "XenAppDelegate.h"
+
+/*!
+ @copyright (c) Benedict W. Hazel, 2011-2012
+ @header XenAppDelegate.m Main application delegate implementation.
+ */
 
 @implementation XenAppDelegate
 

@@ -38,7 +38,7 @@
             @catch (NSException* exception) {
                 [alert setMessageText:[exception reason]];
                 [alert beginSheetModalForWindow:mainWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
-                if ([encounter energyCount] >= 3) [encounter setInteractionEnergies];
+                if ([encounter getEnergyCount] >= 3) [encounter setInteractionEnergies];
             }
             @finally {
                 /*** MODIFY C# and C++ ***/
@@ -58,28 +58,28 @@
     [saveFile beginSheetModalForWindow:mainWindow completionHandler:^(NSInteger result) {
         [saveFile close];
         if (result == NSFileHandlingPanelOKButton) {
-            NSString* outputFile;
+            id<BHIDataFormatter> formatter;
             @try {
                 if ([[formatsPopUpButton titleOfSelectedItem] isEqualToString:@"Comma Separated Values"]) {
-                    outputFile = [encounter toCsv];
+                    formatter = [[BHCsvDataFormatter alloc] init];
                 }
                 else if ([[formatsPopUpButton titleOfSelectedItem] isEqualToString:@"JSON"]) {
-                    outputFile = [encounter toJson];
+                    formatter = [[BHJsonDataFormatter alloc] init];
                 }
                 else if ([[formatsPopUpButton titleOfSelectedItem] isEqualToString:@"XML"]) {
-                    outputFile = [encounter toXml];
+                    formatter = [[BHXmlDataFormatter alloc] init];
                 }
                 else {
                     [[NSException exceptionWithName:@"IllegalArgumentException" reason:@"Unknown file type selected" userInfo:nil] raise];
                 }
-                [outputFile writeToURL:[saveFile URL] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                [formatter exportData:encounter output:[saveFile URL]];
             }
             @catch (NSException *exception) {
                 [alert setMessageText:[exception reason]];
                 [alert beginSheetModalForWindow:mainWindow modalDelegate:self didEndSelector:nil contextInfo:nil];
             }
             @finally {
-                [outputFile release];
+                [formatter release];
                 [extensions release];
             }
         }
@@ -88,12 +88,12 @@
 
 -(void)setUi {
     [txtDescription setStringValue:encounter.description];
-    if ([encounter energyCount] >= 1) [txtDimerDimer setDoubleValue:encounter.dimer];
-    if ([encounter energyCount] >= 2) [txtMonADimer setDoubleValue:encounter.monomerADimerBasis];
-    if ([encounter energyCount] >= 3) {
+    if ([encounter getEnergyCount] >= 1) [txtDimerDimer setDoubleValue:encounter.dimer];
+    if ([encounter getEnergyCount] >= 2) [txtMonADimer setDoubleValue:encounter.monomerADimerBasis];
+    if ([encounter getEnergyCount] >= 3) {
         [txtMonBDimer setDoubleValue:encounter.monomerBDimerBasis];
-        if ([encounter energyCount] >= 4) [txtMonAMon setDoubleValue:encounter.monomerAMonomerBasis];
-        if ([encounter energyCount] == 5) [txtMonBMon setDoubleValue:encounter.monomerBMonomerBasis];
+        if ([encounter getEnergyCount] >= 4) [txtMonAMon setDoubleValue:encounter.monomerAMonomerBasis];
+        if ([encounter getEnergyCount] == 5) [txtMonBMon setDoubleValue:encounter.monomerBMonomerBasis];
         [txtInteractionHartree setDoubleValue:encounter.interactionEnergyHartrees];
         [txtInteractionKjmol setDoubleValue:encounter.interactionEnergyKjmol];
         [txtBindingConstant setDoubleValue:encounter.bindingConstant];
