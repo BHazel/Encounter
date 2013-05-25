@@ -1,4 +1,8 @@
-﻿1.1.0.34	13/05/2012	Benedict W. Hazel
+﻿1.2.0.38	25/05/2013	Benedict W. Hazel
+
+	* Introduced new class structure to improve maintainability
+
+1.1.0.34	13/05/2012	Benedict W. Hazel
 
 	* Calculation description is now obtained and displayed in the user interface
 	* Calculation description is included in exported data
