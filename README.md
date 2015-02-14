@@ -8,7 +8,7 @@ The Counterpoise Correction arises due to the Basis Set Superposition Error in q
 CI Status
 ---------
 
-**No CI** C++/Qt
+[![Build Status](https://travis-ci.org/BHazel/Encounter.svg?branch=master)](https://travis-ci.org/BHazel/Encounter) C++/Qt
 
 **No CI** Java
 
