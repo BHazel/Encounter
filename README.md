@@ -1,6 +1,8 @@
 Encounter
 =========
 
+![Encounter](wiki/encounter.png)
+
 Encounter is a simple program for calculating the interaction energy between two molecules using the output from a GAUSSIAN two-component counterpoise correction calculation.
 
 The Counterpoise Correction arises due to the Basis Set Superposition Error in quantum modeling.
