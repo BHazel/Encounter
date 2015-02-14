@@ -1,0 +1,13 @@
+language: cpp
+
+compiler: gcc
+
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq qt4-dev-tools
+
+before_script:
+ - cd 1.0-northcote/cpp
+ - qmake
+
+script: make

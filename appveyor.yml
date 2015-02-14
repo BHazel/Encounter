@@ -1,0 +1,4 @@
+configuration: Release
+
+build:
+  project: 1.0-northcote\cs\Sharpen.sln
