@@ -5,6 +5,17 @@ Encounter is a simple program for calculating the interaction energy between two
 
 The Counterpoise Correction arises due to the Basis Set Superposition Error in quantum modeling.
 
+CI Status
+---------
+
+**No CI** C++/Qt
+
+**No CI** Java
+
+[![Build status](https://ci.appveyor.com/api/projects/status/66sepbt149a3ttkn?svg=true)](https://ci.appveyor.com/project/BHazel/encounter) .NET/C#
+
+**No CI** Objective-C/Cocoa
+
 Build & Usage
 -------------
 
