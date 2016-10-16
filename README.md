@@ -1,6 +1,8 @@
 Encounter
 =========
 
+**A new version of Encounter is under development based on Node.js and Electron.  The repository will be available here on GitHub shortly.**
+
 ![Encounter](wiki/encounter.png)
 
 Encounter is a simple program for calculating the interaction energy between two molecules using the output from a GAUSSIAN two-component counterpoise correction calculation.
