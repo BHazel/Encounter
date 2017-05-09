@@ -1,7 +1,7 @@
 Encounter
 =========
 
-**A new version of Encounter is under development based on Node.js and Electron.  The repository will be available here on GitHub shortly.**
+**A new version of Encounter is under development based on Node.js and Electron.  The repository can be found [here](https://github.com/BHazel/Encounter).**
 
 ![Encounter](wiki/encounter.png)
 
